@@ -8,7 +8,7 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-sql';
 import {
   Send, BookOpen, Shield, Terminal, Rocket,
-  Cpu, X, ChevronLeft, MoreHorizontal
+  Cpu, X, ChevronLeft, MoreHorizontal, Sparkles
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -25,10 +25,10 @@ interface Props {
 }
 
 const SUGGESTIONS = [
-  { icon: BookOpen, label: 'IT Syllabus & Faculty', color: 'text-blue-400', bg: 'bg-blue-500/10', action: 'Tell me about IT Syllabus & Faculty' },
-  { icon: Shield, label: 'Code Security Audit', color: 'text-violet-400', bg: 'bg-violet-500/10', action: 'Explain what the Code-Sec Oracle mode does' },
-  { icon: Terminal, label: 'Debug C / Java / JS', color: 'text-emerald-400', bg: 'bg-emerald-500/10', action: 'I have a debugging question about C' },
-  { icon: Rocket, label: 'ChatGPT — try it', color: 'text-cyan-400', bg: 'bg-cyan-500/10', action: 'ChatGPT explain what is an operating system' },
+  { icon: BookOpen, label: 'IT Syllabus & Faculty', action: 'Tell me about IT Syllabus & Faculty' },
+  { icon: Shield, label: 'Code Security Audit', action: 'Explain what the Code-Sec Oracle mode does' },
+  { icon: Terminal, label: 'Debug C / Java / JS', action: 'I have a debugging question about C' },
+  { icon: Rocket, label: 'ChatGPT — try it', action: 'ChatGPT explain what is an operating system' },
 ];
 
 const NAV_ITEMS = [
@@ -71,7 +71,6 @@ export default function ChatInterface({ onBack }: Props) {
     setInput('');
     setIsLoading(true);
 
-    // Deactivate antigravity when a non-ChatGPT message is sent
     if (!input.trim().toLowerCase().includes('chatgpt')) {
       setIsAntigravity(false);
     }
@@ -102,97 +101,91 @@ export default function ChatInterface({ onBack }: Props) {
   };
 
   return (
-    <div className="flex h-screen bg-[#0E0E10] overflow-hidden">
-
+    <div className="flex h-screen bg-[#020617] overflow-hidden font-sans">
+      
       {/* ── Sidebar ── */}
       <aside className="sidebar hidden md:flex">
         {/* Logo */}
-        <div className="flex items-center gap-2.5 px-4 h-14 border-b border-white/[0.05] shrink-0">
-          <div className={cn(
-            "w-7 h-7 rounded-lg flex items-center justify-center border transition-colors duration-500",
-            isAntigravity ? "bg-violet-500/20 border-violet-500/30" : "bg-indigo-600/20 border-indigo-500/30"
-          )}>
-            {isAntigravity
-              ? <Rocket className="w-4 h-4 text-violet-400 animate-pulse" />
-              : <Cpu className="w-4 h-4 text-indigo-400" />
-            }
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-white leading-none">Nexus</div>
+        <div className="flex items-center gap-4 px-6 h-24 border-b border-white/5 shrink-0">
+          <button onClick={onBack} className="text-slate-400 hover:text-white transition-colors group">
+            <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          </button>
+          
+          <div className="flex items-center gap-3">
             <div className={cn(
-              "text-[10px] mt-0.5 transition-colors duration-500",
-              isAntigravity ? "text-violet-500" : "text-[#4a4a55]"
+              "w-8 h-8 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-colors duration-500",
+              isAntigravity ? "bg-violet-500/20 text-violet-400" : "bg-sky-500/20 text-sky-400"
             )}>
-              {isAntigravity ? 'Zero-G Mode' : 'IT Dept AI'}
+              {isAntigravity ? <Rocket className="w-4 h-4 animate-pulse" /> : <Cpu className="w-4 h-4" />}
+            </div>
+            <div>
+              <div className="text-base font-bold text-white tracking-wide uppercase">Nexus AI</div>
+              <div className={cn(
+                "text-[10px] tracking-widest uppercase font-semibold mt-0.5 transition-colors duration-500",
+                isAntigravity ? "text-violet-400" : "text-sky-500"
+              )}>
+                {isAntigravity ? 'Zero-G Mode' : 'IT Dept Core'}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Nav */}
-        <div className="flex-1 p-3 pt-4 overflow-y-auto custom-scrollbar">
-          <div className="text-[10px] text-[#38383f] uppercase tracking-widest font-semibold px-3 mb-2">Quick Start</div>
+        <div className="flex-1 px-4 py-8 overflow-y-auto custom-scrollbar space-y-2">
+          <div className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold px-4 mb-4">Quick Start Command</div>
           {NAV_ITEMS.map((item, i) => (
-            <button key={i} onClick={() => setInputAndFocus(item.action)} className="nav-item">
-              <item.icon className="w-4 h-4 shrink-0" />
+            <button key={i} onClick={() => setInputAndFocus(item.action)} className="nav-item group">
+              <item.icon className="w-4 h-4 shrink-0 text-slate-400 group-hover:text-sky-400 transition-colors" />
               {item.label}
             </button>
           ))}
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-white/[0.05] shrink-0 space-y-3">
-          <div className="flex items-center gap-2">
+        <div className="p-6 border-t border-white/5 shrink-0">
+          <div className="flex items-center gap-3 bg-[#0f172a] px-4 py-3 rounded-2xl border border-sky-900/30">
             <div className={cn(
-              "w-1.5 h-1.5 rounded-full animate-pulse",
-              isAntigravity ? "bg-violet-500" : "bg-emerald-500"
+              "w-2 h-2 rounded-full animate-pulse shadow-[0_0_8px_rgba(56,189,248,0.8)]",
+              isAntigravity ? "bg-violet-400" : "bg-sky-400"
             )} />
-            <span className="text-[11px] text-[#4a4a55]">Online</span>
+            <div className="flex flex-col">
+              <span className="text-xs font-semibold text-slate-300">System Connected</span>
+              <span className="text-[10px] text-slate-500">Latency: 14ms</span>
+            </div>
           </div>
-          <button
-            onClick={onBack}
-            className="flex items-center gap-2 text-[11px] text-[#4a4a55] hover:text-[#8888a0] transition-colors w-full"
-          >
-            <ChevronLeft className="w-3 h-3" />
-            Back to home
-          </button>
         </div>
       </aside>
 
       {/* ── Chat Panel ── */}
       <main className="chat-panel">
-
-        {/* Top bar */}
-        <div className="flex items-center justify-between px-5 h-14 border-b border-white/[0.05] shrink-0">
-          <div className="flex items-center gap-3">
-            {/* Mobile back */}
-            <button onClick={onBack} className="md:hidden text-[#4a4a55] hover:text-white transition-colors">
-              <ChevronLeft className="w-5 h-5" />
+        
+        {/* Top bar (mobile + secondary actions) */}
+        <div className="flex items-center justify-between px-6 lg:px-10 h-20 border-b border-white/5 shrink-0 bg-[#020617]/50 backdrop-blur-md relative z-30">
+          <div className="flex items-center gap-4">
+            <button onClick={onBack} className="md:hidden text-slate-400 hover:text-white transition-colors">
+              <ChevronLeft className="w-6 h-6" />
             </button>
-            <div>
-              <span className="text-sm font-semibold text-white">Nexus</span>
-              <span className="text-[#4a4a55] text-sm ml-1.5 hidden sm:inline">·</span>
-              <span className="text-xs text-[#4a4a55] ml-1.5 hidden sm:inline">IT Department AI</span>
+            <div className="md:hidden flex items-center gap-2">
+              <Cpu className="w-5 h-5 text-sky-400" />
+              <span className="text-base font-bold tracking-wide text-white uppercase">Nexus AI</span>
+            </div>
+            <div className="hidden md:flex items-center gap-2 text-sm text-slate-400">
+              <Sparkles className="w-4 h-4 text-sky-400" />
+              <span>AI Automation Assistant</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             {isAntigravity && (
               <button
                 onClick={() => setIsAntigravity(false)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-violet-300 border border-violet-500/20 bg-violet-500/10 hover:bg-violet-500/20 transition-all"
+                className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold text-violet-300 border border-violet-500/30 bg-violet-500/10 hover:bg-violet-500/20 transition-all shadow-[0_0_15px_rgba(139,92,246,0.2)]"
               >
                 <X className="w-3 h-3" /> Exit Zero-G
               </button>
             )}
-            <div className="flex items-center gap-1.5 text-xs text-[#4a4a55]">
-              <div className={cn(
-                "w-1.5 h-1.5 rounded-full animate-pulse",
-                isAntigravity ? "bg-violet-500" : "bg-emerald-500"
-              )} />
-              <span className="hidden sm:inline">{isAntigravity ? 'Zero-G Active' : 'Online'}</span>
-            </div>
-            <button className="text-[#4a4a55] hover:text-white transition-colors">
-              <MoreHorizontal className="w-4 h-4" />
+            <button className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 border border-white/10 text-slate-300 hover:bg-white/10 hover:text-white transition-all">
+              <MoreHorizontal className="w-5 h-5" />
             </button>
           </div>
         </div>
@@ -201,36 +194,34 @@ export default function ChatInterface({ onBack }: Props) {
         <div
           ref={scrollRef}
           className={cn(
-            "flex-1 overflow-y-auto custom-scrollbar antigravity-transition px-4 md:px-8 py-6 space-y-5",
+            "flex-1 overflow-y-auto custom-scrollbar antigravity-transition px-6 lg:px-12 py-8 space-y-6 relative z-10",
             isAntigravity && "antigravity-active"
           )}
         >
           {messages.length === 0 && (
-            <div className="flex flex-col items-center justify-center h-full text-center space-y-8 py-8">
-              <div className="space-y-2">
-                <div className={cn(
-                  "w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 border",
-                  isAntigravity ? "bg-violet-500/10 border-violet-500/20" : "bg-indigo-600/10 border-indigo-500/20"
-                )}>
-                  <Cpu className={cn("w-7 h-7", isAntigravity ? "text-violet-400" : "text-indigo-400")} />
+            <div className="flex flex-col items-center justify-center h-full text-center space-y-10 py-10 animate-fade-in-up">
+              <div className="space-y-4">
+                <div className="w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 bg-gradient-to-br from-sky-400/20 to-indigo-500/20 border border-sky-400/30 shadow-[0_0_40px_rgba(56,189,248,0.15)] relative">
+                  <div className="absolute inset-0 bg-sky-400/10 blur-xl rounded-3xl" />
+                  <Cpu className={cn("w-10 h-10 relative z-10", isAntigravity ? "text-violet-400" : "text-sky-400")} />
                 </div>
-                <h2 className="text-xl font-semibold text-white">How can I help you?</h2>
-                <p className="text-sm text-[#6b6b78] max-w-sm mx-auto leading-6">
-                  Ask about your IT syllabus, get a code security audit, or debug your programs.
+                <h2 className="text-3xl font-bold text-white tracking-tight">How can I assist you today?</h2>
+                <p className="text-base text-slate-400 max-w-md mx-auto leading-relaxed font-light">
+                  Query the IT syllabus, initiate a code security audit, or resolve syntax errors instantly.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-xl">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
                 {SUGGESTIONS.map((s, i) => (
                   <button
                     key={i}
                     onClick={() => setInputAndFocus(s.action)}
-                    className="flex items-center gap-3 p-4 bg-[#141418] border border-white/[0.06] rounded-xl hover:border-indigo-500/20 hover:bg-[#16161e] text-left transition-all duration-200"
+                    className="flex items-center gap-4 p-5 bg-[#0f172a]/60 backdrop-blur-md border border-white/5 rounded-2xl hover:border-sky-500/40 hover:bg-[#1e293b]/80 text-left transition-all duration-300 group hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(14,165,233,0.1)]"
                   >
-                    <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center shrink-0", s.bg)}>
-                      <s.icon className={cn("w-4 h-4", s.color)} />
+                    <div className="w-12 h-12 rounded-xl bg-sky-950/50 border border-sky-900/50 flex items-center justify-center shrink-0 group-hover:bg-sky-500/20 group-hover:border-sky-400/50 transition-all duration-300">
+                      <s.icon className="w-5 h-5 text-sky-400" />
                     </div>
-                    <span className="text-sm text-[#c0c0d0] font-medium">{s.label}</span>
+                    <span className="text-[15px] text-slate-200 font-medium group-hover:text-white transition-colors">{s.label}</span>
                   </button>
                 ))}
               </div>
@@ -241,28 +232,28 @@ export default function ChatInterface({ onBack }: Props) {
             <div
               key={i}
               className={cn(
-                "flex gap-3 antigravity-message relative z-10",
+                "flex gap-4 antigravity-message relative z-10 max-w-4xl mx-auto w-full animate-fade-in-up",
                 msg.role === 'user' ? "flex-row-reverse" : "flex-row"
               )}
             >
               {/* Avatar */}
               <div className={cn(
-                "w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5 border text-xs font-semibold",
+                "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border text-sm font-bold shadow-lg",
                 msg.role === 'user'
-                  ? "bg-[#1e1e26] border-white/[0.08] text-[#8888a0]"
-                  : "bg-indigo-600/15 border-indigo-500/20"
+                  ? "bg-slate-800 border-slate-700 text-slate-300"
+                  : "bg-gradient-to-br from-sky-500/20 to-indigo-600/20 border-sky-500/30"
               )}>
                 {msg.role === 'user'
-                  ? <span>U</span>
-                  : <Cpu className={cn("w-4 h-4", isAntigravity ? "text-violet-400" : "text-indigo-400")} />
+                  ? <span>ME</span>
+                  : <Cpu className={cn("w-5 h-5", isAntigravity ? "text-violet-400" : "text-sky-400")} />
                 }
               </div>
 
               {/* Bubble */}
               <div
                 className={cn(
-                  "max-w-[82%]",
-                  msg.role === 'user' ? "user-bubble" : cn("ai-bubble antigravity-accent", isAntigravity && "border-l-violet-500")
+                  "flex-1 max-w-[85%]",
+                  msg.role === 'user' ? "user-bubble" : "ai-bubble"
                 )}
               >
                 <div className="markdown-body">
@@ -274,55 +265,50 @@ export default function ChatInterface({ onBack }: Props) {
 
           {/* Loading */}
           {isLoading && (
-            <div className="flex gap-3 relative z-10">
-              <div className={cn(
-                "w-8 h-8 rounded-xl border flex items-center justify-center shrink-0",
-                isAntigravity ? "bg-violet-500/10 border-violet-500/20" : "bg-indigo-600/10 border-indigo-500/20"
-              )}>
-                <Cpu className={cn("w-4 h-4", isAntigravity ? "text-violet-400" : "text-indigo-400")} />
+            <div className="flex gap-4 relative z-10 max-w-4xl mx-auto w-full animate-fade-in-up">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border bg-gradient-to-br from-sky-500/20 to-indigo-600/20 border-sky-500/30 shadow-lg">
+                <Cpu className={cn("w-5 h-5", isAntigravity ? "text-violet-400" : "text-sky-400")} />
               </div>
-              <div className={cn(
-                "ai-bubble antigravity-accent flex items-center gap-1.5 py-4",
-                isAntigravity && "border-l-violet-500"
-              )}>
-                <span className={cn("w-1.5 h-1.5 rounded-full animate-bounce", isAntigravity ? "bg-violet-400" : "bg-indigo-400")} />
-                <span className={cn("w-1.5 h-1.5 rounded-full animate-bounce [animation-delay:0.15s]", isAntigravity ? "bg-violet-400" : "bg-indigo-400")} />
-                <span className={cn("w-1.5 h-1.5 rounded-full animate-bounce [animation-delay:0.3s]", isAntigravity ? "bg-violet-400" : "bg-indigo-400")} />
+              <div className="ai-bubble flex items-center gap-2 py-5 px-6">
+                <span className={cn("w-2 h-2 rounded-full shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-bounce", isAntigravity ? "bg-violet-400" : "bg-sky-400")} />
+                <span className={cn("w-2 h-2 rounded-full shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-bounce [animation-delay:0.15s]", isAntigravity ? "bg-violet-400" : "bg-sky-400")} />
+                <span className={cn("w-2 h-2 rounded-full shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-bounce [animation-delay:0.3s]", isAntigravity ? "bg-violet-400" : "bg-sky-400")} />
               </div>
             </div>
           )}
         </div>
 
         {/* ── Input ── */}
-        <div className="px-4 md:px-8 py-4 border-t border-white/[0.05] shrink-0">
-          <form onSubmit={handleSubmit} className="relative">
-            <textarea
-              ref={inputRef}
-              rows={1}
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder={isAntigravity ? 'Float a question into the cosmos...' : 'Message Nexus...'}
-              className="chat-input"
-              style={{ maxHeight: '200px', overflowY: 'auto' }}
-            />
-            <button
-              type="submit"
-              disabled={isLoading || !input.trim()}
-              className="send-btn"
-            >
-              <Send className="w-4 h-4 text-white" />
-            </button>
-          </form>
-          <div className="flex flex-col items-center justify-center mt-3 gap-1.5">
-            <p className="text-[10px] text-[#2a2a35] text-center font-mono uppercase tracking-widest">
-              {isAntigravity ? 'Zero-G Protocol · Nexus Intelligence Core' : 'Nexus Intelligence Core · IT Dept · Authorized Personnel Only'}
-            </p>
-            <div className="flex items-center gap-1.5 text-[11px] text-[#38383f]">
-              <span>Designed</span>
-              <span className="select-none">&amp;</span>
-              <span>Developed by</span>
-              <span className="text-indigo-400 font-medium tracking-wide">Prajwal Chaple</span>
+        <div className="px-6 lg:px-12 py-6 shrink-0 relative z-30 bg-gradient-to-t from-[#020617] via-[#020617]/90 to-transparent">
+          <div className="max-w-4xl mx-auto">
+            <form onSubmit={handleSubmit} className="relative chat-input-wrapper">
+              <textarea
+                ref={inputRef}
+                rows={1}
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder={isAntigravity ? 'Float a question into the cosmos...' : 'Message the automation core...'}
+                className="chat-input custom-scrollbar"
+                style={{ maxHeight: '200px', minHeight: '60px' }}
+              />
+              <button
+                type="submit"
+                disabled={isLoading || !input.trim()}
+                className="send-btn"
+              >
+                <Send className="w-5 h-5" />
+              </button>
+            </form>
+            
+            <div className="flex items-center justify-between mt-4 px-2">
+              <p className="text-[10px] text-slate-600 font-mono uppercase tracking-widest hidden sm:block">
+                {isAntigravity ? 'Zero-G Protocol Active' : 'Nexus Core · Secured Connection'}
+              </p>
+              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 w-full sm:w-auto justify-center sm:justify-end">
+                <span>Designed &amp; Developed by</span>
+                <span className="text-sky-400 font-semibold tracking-wide">Prajwal Chaple</span>
+              </div>
             </div>
           </div>
         </div>
