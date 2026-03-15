@@ -8,7 +8,7 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-sql';
 import {
   Send, BookOpen, Shield, Terminal, Rocket,
-  Cpu, X, ChevronLeft, MoreHorizontal, Sparkles
+  Hexagon, X, ChevronLeft, MoreHorizontal, Sparkles
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -81,7 +81,7 @@ export default function ChatInterface({ onBack }: Props) {
       if (triggerZeroG) setIsAntigravity(true);
       setMessages([...newMessages, { role: 'model', content: text }]);
     } catch (error) {
-      console.error('Nexus Error:', error);
+      console.error('Aura Error:', error);
       setMessages([...newMessages, { role: 'model', content: 'Connection error. Please try again.' }]);
     } finally {
       setIsLoading(false);
@@ -114,17 +114,17 @@ export default function ChatInterface({ onBack }: Props) {
           <div className="flex items-center gap-3">
             <div className={cn(
               "w-8 h-8 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-colors duration-500",
-              isAntigravity ? "bg-violet-500/20 text-violet-400" : "bg-sky-500/20 text-sky-400"
+              isAntigravity ? "bg-violet-500/20 text-violet-400" : "bg-indigo-500/20 text-indigo-400"
             )}>
-              {isAntigravity ? <Rocket className="w-4 h-4 animate-pulse" /> : <Cpu className="w-4 h-4" />}
+              {isAntigravity ? <Rocket className="w-4 h-4 animate-pulse" /> : <Hexagon className="w-4 h-4" />}
             </div>
             <div>
-              <div className="text-base font-bold text-white tracking-wide uppercase">Nexus AI</div>
+              <div className="text-base font-bold text-white tracking-wide uppercase">AURA AI</div>
               <div className={cn(
                 "text-[10px] tracking-widest uppercase font-semibold mt-0.5 transition-colors duration-500",
-                isAntigravity ? "text-violet-400" : "text-sky-500"
+                isAntigravity ? "text-violet-400" : "text-indigo-400"
               )}>
-                {isAntigravity ? 'Zero-G Mode' : 'IT Dept Core'}
+                {isAntigravity ? 'Zero-G Mode' : 'Aura Engine Core'}
               </div>
             </div>
           </div>
@@ -143,10 +143,10 @@ export default function ChatInterface({ onBack }: Props) {
 
         {/* Footer */}
         <div className="p-6 border-t border-white/5 shrink-0">
-          <div className="flex items-center gap-3 bg-[#0f172a] px-4 py-3 rounded-2xl border border-sky-900/30">
+          <div className="flex items-center gap-3 bg-[#0f172a] px-4 py-3 rounded-2xl border border-indigo-900/30">
             <div className={cn(
-              "w-2 h-2 rounded-full animate-pulse shadow-[0_0_8px_rgba(56,189,248,0.8)]",
-              isAntigravity ? "bg-violet-400" : "bg-sky-400"
+              "w-2 h-2 rounded-full animate-pulse shadow-[0_0_8px_rgba(99,102,241,0.8)]",
+              isAntigravity ? "bg-violet-400" : "bg-indigo-400"
             )} />
             <div className="flex flex-col">
               <span className="text-xs font-semibold text-slate-300">System Connected</span>
@@ -166,12 +166,12 @@ export default function ChatInterface({ onBack }: Props) {
               <ChevronLeft className="w-6 h-6" />
             </button>
             <div className="md:hidden flex items-center gap-2">
-              <Cpu className="w-5 h-5 text-sky-400" />
-              <span className="text-base font-bold tracking-wide text-white uppercase">Nexus AI</span>
+              <Hexagon className="w-5 h-5 text-indigo-400" />
+              <span className="text-base font-bold tracking-wide text-white uppercase">AURA AI</span>
             </div>
             <div className="hidden md:flex items-center gap-2 text-sm text-slate-400">
-              <Sparkles className="w-4 h-4 text-sky-400" />
-              <span>AI Automation Assistant</span>
+              <Sparkles className="w-4 h-4 text-indigo-400" />
+              <span>Aura Intelligence Engine</span>
             </div>
           </div>
 
@@ -201,13 +201,13 @@ export default function ChatInterface({ onBack }: Props) {
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center h-full text-center space-y-10 py-10 animate-fade-in-up">
               <div className="space-y-4">
-                <div className="w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 bg-gradient-to-br from-sky-400/20 to-indigo-500/20 border border-sky-400/30 shadow-[0_0_40px_rgba(56,189,248,0.15)] relative">
-                  <div className="absolute inset-0 bg-sky-400/10 blur-xl rounded-3xl" />
-                  <Cpu className={cn("w-10 h-10 relative z-10", isAntigravity ? "text-violet-400" : "text-sky-400")} />
+                <div className="w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 bg-gradient-to-br from-indigo-500/20 to-violet-500/20 border border-indigo-400/30 shadow-[0_0_40px_rgba(99,102,241,0.15)] relative">
+                  <div className="absolute inset-0 bg-indigo-400/10 blur-xl rounded-3xl" />
+                  <Hexagon className={cn("w-10 h-10 relative z-10", isAntigravity ? "text-violet-400" : "text-indigo-400")} />
                 </div>
-                <h2 className="text-3xl font-bold text-white tracking-tight">How can I assist you today?</h2>
+                <h2 className="text-3xl font-bold text-white tracking-tight">How can Aura assist you?</h2>
                 <p className="text-base text-slate-400 max-w-md mx-auto leading-relaxed font-light">
-                  Query the IT syllabus, initiate a code security audit, or resolve syntax errors instantly.
+                  Query the data core, initiate an automated code audit, or resolve complex logic errors instantly.
                 </p>
               </div>
 
@@ -216,10 +216,10 @@ export default function ChatInterface({ onBack }: Props) {
                   <button
                     key={i}
                     onClick={() => setInputAndFocus(s.action)}
-                    className="flex items-center gap-4 p-5 bg-[#0f172a]/60 backdrop-blur-md border border-white/5 rounded-2xl hover:border-sky-500/40 hover:bg-[#1e293b]/80 text-left transition-all duration-300 group hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(14,165,233,0.1)]"
+                    className="flex items-center gap-4 p-5 bg-[#0f172a]/60 backdrop-blur-md border border-white/5 rounded-2xl hover:border-indigo-500/40 hover:bg-[#1e293b]/80 text-left transition-all duration-300 group hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(99,102,241,0.1)]"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-sky-950/50 border border-sky-900/50 flex items-center justify-center shrink-0 group-hover:bg-sky-500/20 group-hover:border-sky-400/50 transition-all duration-300">
-                      <s.icon className="w-5 h-5 text-sky-400" />
+                    <div className="w-12 h-12 rounded-xl bg-indigo-950/50 border border-indigo-900/50 flex items-center justify-center shrink-0 group-hover:bg-indigo-500/20 group-hover:border-indigo-400/50 transition-all duration-300">
+                      <s.icon className="w-5 h-5 text-indigo-400" />
                     </div>
                     <span className="text-[15px] text-slate-200 font-medium group-hover:text-white transition-colors">{s.label}</span>
                   </button>
@@ -241,11 +241,11 @@ export default function ChatInterface({ onBack }: Props) {
                 "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border text-sm font-bold shadow-lg",
                 msg.role === 'user'
                   ? "bg-slate-800 border-slate-700 text-slate-300"
-                  : "bg-gradient-to-br from-sky-500/20 to-indigo-600/20 border-sky-500/30"
+                  : "bg-gradient-to-br from-indigo-500/20 to-violet-600/20 border-indigo-500/30"
               )}>
                 {msg.role === 'user'
                   ? <span>ME</span>
-                  : <Cpu className={cn("w-5 h-5", isAntigravity ? "text-violet-400" : "text-sky-400")} />
+                  : <Hexagon className={cn("w-5 h-5", isAntigravity ? "text-violet-400" : "text-indigo-400")} />
                 }
               </div>
 
@@ -266,13 +266,13 @@ export default function ChatInterface({ onBack }: Props) {
           {/* Loading */}
           {isLoading && (
             <div className="flex gap-4 relative z-10 max-w-4xl mx-auto w-full animate-fade-in-up">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border bg-gradient-to-br from-sky-500/20 to-indigo-600/20 border-sky-500/30 shadow-lg">
-                <Cpu className={cn("w-5 h-5", isAntigravity ? "text-violet-400" : "text-sky-400")} />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border bg-gradient-to-br from-indigo-500/20 to-violet-600/20 border-indigo-500/30 shadow-lg">
+                <Hexagon className={cn("w-5 h-5", isAntigravity ? "text-violet-400" : "text-indigo-400")} />
               </div>
               <div className="ai-bubble flex items-center gap-2 py-5 px-6">
-                <span className={cn("w-2 h-2 rounded-full shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-bounce", isAntigravity ? "bg-violet-400" : "bg-sky-400")} />
-                <span className={cn("w-2 h-2 rounded-full shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-bounce [animation-delay:0.15s]", isAntigravity ? "bg-violet-400" : "bg-sky-400")} />
-                <span className={cn("w-2 h-2 rounded-full shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-bounce [animation-delay:0.3s]", isAntigravity ? "bg-violet-400" : "bg-sky-400")} />
+                <span className={cn("w-2 h-2 rounded-full shadow-[0_0_8px_rgba(99,102,241,0.8)] animate-bounce", isAntigravity ? "bg-violet-400" : "bg-indigo-400")} />
+                <span className={cn("w-2 h-2 rounded-full shadow-[0_0_8px_rgba(99,102,241,0.8)] animate-bounce [animation-delay:0.15s]", isAntigravity ? "bg-violet-400" : "bg-indigo-400")} />
+                <span className={cn("w-2 h-2 rounded-full shadow-[0_0_8px_rgba(99,102,241,0.8)] animate-bounce [animation-delay:0.3s]", isAntigravity ? "bg-violet-400" : "bg-indigo-400")} />
               </div>
             </div>
           )}
@@ -288,7 +288,7 @@ export default function ChatInterface({ onBack }: Props) {
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder={isAntigravity ? 'Float a question into the cosmos...' : 'Message the automation core...'}
+                placeholder={isAntigravity ? 'Float a question into the cosmos...' : 'Message Aura Engine...'}
                 className="chat-input custom-scrollbar"
                 style={{ maxHeight: '200px', minHeight: '60px' }}
               />
@@ -303,7 +303,7 @@ export default function ChatInterface({ onBack }: Props) {
             
             <div className="flex items-center justify-between mt-4 px-2">
               <p className="text-[10px] text-slate-600 font-mono uppercase tracking-widest hidden sm:block">
-                {isAntigravity ? 'Zero-G Protocol Active' : 'Nexus Core · Secured Connection'}
+                {isAntigravity ? 'Zero-G Protocol Active' : 'Aura Core · Secured Connection'}
               </p>
               <div className="flex items-center gap-1.5 text-[11px] text-slate-500 w-full sm:w-auto justify-center sm:justify-end">
                 <span>Designed &amp; Developed by</span>
