@@ -22,7 +22,6 @@ function cn(...inputs: ClassValue[]) {
 
 interface Props {
   onBack: () => void;
-  _onTm?: () => void;
 }
 
 const SUGGESTIONS = [
@@ -39,20 +38,13 @@ const NAV_ITEMS = [
   { icon: Rocket, label: 'ChatGPT', action: 'ChatGPT explain recursion' },
 ];
 
-export default function ChatInterface({ onBack, _onTm }: Props) {
+export default function ChatInterface({ onBack }: Props) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isAntigravity, setIsAntigravity] = useState(false);
-  const [_tc, _stc] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  const _ht = () => {
-    const n = _tc + 1;
-    _stc(n);
-    if (n >= 3) { _onTm?.(); _stc(0); }
-  };
 
   useEffect(() => { Prism.highlightAll(); }, [messages]);
 
@@ -328,9 +320,9 @@ export default function ChatInterface({ onBack, _onTm }: Props) {
             </p>
             <div className="flex items-center gap-1.5 text-[11px] text-[#38383f]">
               <span>Designed</span>
-              <span onClick={_ht} className="cursor-default select-none">&amp;</span>
+              <span className="select-none">&amp;</span>
               <span>Developed by</span>
-              <span className="text-indigo-400 font-medium tracking-wide">Yug Daduria</span>
+              <span className="text-indigo-400 font-medium tracking-wide">Prajwal Chaple</span>
             </div>
           </div>
         </div>

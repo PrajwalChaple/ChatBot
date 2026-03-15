@@ -3,7 +3,6 @@ import { BookOpen, Shield, Terminal, Rocket, Cpu, ArrowRight, Zap, Users, Code2,
 
 interface Props {
   onStart: () => void;
-  _onTm?: () => void;
 }
 
 const features = [
@@ -44,15 +43,7 @@ const stats = [
   { value: 'Fast', label: 'Powered by Gemini', icon: Zap },
 ];
 
-export default function LandingPage({ onStart, _onTm }: Props) {
-  const [_tc, _stc] = useState(0);
-
-  const _ht = () => {
-    const n = _tc + 1;
-    _stc(n);
-    if (n >= 3) { _onTm?.(); _stc(0); }
-  };
-
+export default function LandingPage({ onStart }: Props) {
   return (
     <div className="min-h-screen bg-[#0E0E10] text-[#E8E8EA] overflow-x-hidden">
       {/* Radial hero glow */}
@@ -186,9 +177,9 @@ export default function LandingPage({ onStart, _onTm }: Props) {
           <p className="text-[#4a4a55] text-[10px] mt-4 font-mono uppercase tracking-widest mb-6">IT DEPT INTELLIGENCE CORE · AUTHORIZED PERSONNEL ONLY</p>
           <div className="flex items-center justify-center gap-1.5 text-xs text-[#6b6b78]">
             <span>Designed</span>
-            <span onClick={_ht} className="cursor-default select-none">&amp;</span>
+            <span className="select-none">&amp;</span>
             <span>Developed by</span>
-            <span className="text-indigo-400 font-medium">Yug Daduria</span>
+            <span className="text-indigo-400 font-medium">Prajwal Chaple</span>
           </div>
         </div>
       </div>
